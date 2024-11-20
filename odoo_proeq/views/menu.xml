@@ -5,4 +5,14 @@
               name="Servers Proeq"
               ></menuitem>
 
+    <menuitem id="menu_actions"
+              name="Actions"
+              parent="menu_server_root"
+              ></menuitem>
+
+    <menuitem id="menu_metrics"
+              name="Metrics"
+              parent="menu_server_root"
+              ></menuitem>
+
 </odoo>
