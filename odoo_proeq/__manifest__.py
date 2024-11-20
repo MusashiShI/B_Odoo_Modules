@@ -7,7 +7,6 @@
     "category": "Services",
 
     "data": [
-
         "views/menu.xml"
     ]
 }

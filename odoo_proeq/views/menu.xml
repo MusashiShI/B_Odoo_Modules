@@ -2,17 +2,20 @@
 <odoo>
 
     <menuitem id="menu_server_root"
-              name="Servers Proeq">
+              name="Servers Proeq"
+              sequence="30">
 
 
         <menuitem id="menu_svmetrics"
                   name="Metrics"
-                  parent="menu_server_root"/>
+                  parent="menu_server_root"
+                  sequence="10"/>
 
 
         <menuitem id="menu_svreports"
                   name="Reports"
-                  parent="menu_server_root"/>
+                  parent="menu_server_root"
+                  sequence="10"/>
     </menuitem>
 
 </odoo>
