@@ -8,7 +8,8 @@
 
     "data": [
         "security/ir.model.access.csv",
-        "views/menu.xml",
-        "views/reports.xml"
+        "views/reports.xml",
+        "views/menu.xml"
+
     ]
 }
