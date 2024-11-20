@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <record id="action_servers_reports" model="ir.action.act_window">
+    <record id="action_servers_reports" model="ir.actions.act_window">
             <field name="name">Servers</field>
             <field name="res_model">proeq.server</field>
             <field name="view_mode">tree,form</field>
