@@ -3,7 +3,7 @@
 
     <menuitem id="menu_server_root"
               name="Servers Proeq"
-              sequence="30">
+              >
 
 
         <menuitem id="menu_svmetrics"
