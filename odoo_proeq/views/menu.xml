@@ -2,7 +2,7 @@
 <odoo>
 
     <menuitem id="menu_server_root"
-              name="SV"
+              name="Servers Proeq"
               ></menuitem>
 
 </odoo>
