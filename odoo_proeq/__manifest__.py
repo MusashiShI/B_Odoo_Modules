@@ -7,7 +7,7 @@
     "category": "Services",
 
     "data": [
-        "security/ir.model.access.csv"
+        "security/ir.model.access.csv",
         "views/menu.xml"
     ]
 }
