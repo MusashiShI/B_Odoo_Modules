@@ -13,7 +13,7 @@
         <menuitem id="menu_svreports"
                   name="Reports"
                   parent="menu_server_root"
-                  action="odoo_proeq.action_servers_reports"
+                  action="action_servers_reports"
         />
 
 
