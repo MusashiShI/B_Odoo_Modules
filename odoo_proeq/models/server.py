@@ -5,6 +5,7 @@ from odoo import api, fields, models
 
 class ProeqServer(models.Model):
     _name = 'proeq.server'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Server'
 
     # name, state, description, ip, type ( ODOO, VUE, DATABASE )
