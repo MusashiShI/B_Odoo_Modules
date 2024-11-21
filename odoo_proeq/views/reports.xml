@@ -6,13 +6,13 @@
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
             <list string="Reports">
-                <sheet>
+
                     <field name="name"/>
                     <field name="state"/>
                     <field name="description"/>
                     <field name="ip"/>
                     <field name="type"/>
-                </sheet>
+
             </list>
         </field>
     </record>
