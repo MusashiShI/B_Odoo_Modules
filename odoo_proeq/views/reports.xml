@@ -12,7 +12,6 @@
                     <field name="description" optional="hide"/>
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
-                    <field name="message_ids" string="# Messages"/>
 
             </list>
         </field>
