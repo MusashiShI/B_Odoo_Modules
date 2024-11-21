@@ -7,7 +7,8 @@ from uaclient.api.u.pro.services.dependencies.v1 import dependencies
     "license": "LGPL-3",
     "version": '0.1',
     "category": "Services",
-    'depends': ['email'],
+
+    'depends': ['mail'],
 
     "data": [
         "security/ir.model.access.csv",
