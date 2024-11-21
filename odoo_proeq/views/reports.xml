@@ -5,7 +5,7 @@
         <field name="name">Server Reports List</field>
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
-            <form string="Reports">
+            <list string="Reports">
                 <sheet>
                     <group>
                     <field name="name" optional="show"/>
@@ -20,7 +20,7 @@
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
                 </div>
-            </form>
+            </list>
         </field>
     </record>
 
