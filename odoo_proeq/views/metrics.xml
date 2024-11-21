@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="action_servers_metrics" model="ir.actions.act_window">
+            <field name="name">Servers Metrics</field>
+            <field name="res_model">proeq.server</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">Create a new Server</p>
+            </field>
+    </record>
+
+</odoo>

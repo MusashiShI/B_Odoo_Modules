@@ -3,11 +3,13 @@
 
     <menuitem id="menu_server_root"
               name="Servers Proeq"
+              action="action_servers_menu"
     />
 
         <menuitem id="menu_svmetrics"
                   name="Metrics"
                   parent="menu_server_root"
+                  action="action_servers_metrics"
         />
 
         <menuitem id="menu_svreports"
