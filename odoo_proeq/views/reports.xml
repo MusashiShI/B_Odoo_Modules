@@ -6,20 +6,14 @@
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
             <list string="Reports">
-                <div>
-                    <group>
+
                     <field name="name" optional="show"/>
                     <field name="state" optional="show" />
                     <field name="description" optional="hide"/>
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
-                    </group>
-                </div>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                    <field name="message_ids" string="# Messages"/>
+
             </list>
         </field>
     </record>
