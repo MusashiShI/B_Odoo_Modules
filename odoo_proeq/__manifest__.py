@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from uaclient.api.u.pro.services.dependencies.v1 import dependencies
+# from uaclient.api.u.pro.services.dependencies.v1 import dependencies
 
 {
     "name": "Odoo Proeq Monitoring",
