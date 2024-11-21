@@ -7,10 +7,10 @@
         <field name="arch" type="xml">
             <list string="Reports">
                 <field name="name"/>
-                <field state="state"/>
-                <field description="description"/>
-                <field ip="ip"/>
-                <field type="type"/>
+                <field name="state"/>
+                <field name="description"/>
+                <field name="ip"/>
+                <field name="type"/>
             </list>
         </field>
     </record>
