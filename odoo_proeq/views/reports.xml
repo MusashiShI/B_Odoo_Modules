@@ -5,15 +5,15 @@
         <field name="name">Server Reports List</field>
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
-            <sheet>
-                <list string="Reports">
+            <list string="Reports">
+                <sheet>
                     <field name="name"/>
                     <field name="state"/>
                     <field name="description"/>
                     <field name="ip"/>
                     <field name="type"/>
-                </list>
-            </sheet>
+                </sheet>
+            </list>
         </field>
     </record>
 
