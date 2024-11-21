@@ -5,7 +5,8 @@
         <field name="name">Server Reports List</field>
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
-            <list string="Reports">
+            <form string="Reports">
+                <group>
 
                     <field name="name" optional="show"/>
                     <field name="state" optional="show" />
@@ -13,12 +14,17 @@
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
 
-            </list>
-            <div class="oe_chatter">
+
+                </group>
+
+                <div class="oe_chatter">
                     <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
-            </div>
+                </div>
+
+            </form>
+
         </field>
     </record>
 
