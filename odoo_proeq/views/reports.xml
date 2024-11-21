@@ -6,7 +6,7 @@
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
             <list string="Reports">
-                <sheet>
+                <div>
                     <group>
                     <field name="name" optional="show"/>
                     <field name="state" optional="show" />
@@ -14,7 +14,7 @@
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
                     </group>
-                </sheet>
+                </div>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" groups="base.group_user" options="{'post_refresh': 'recipients'}"/>
                     <field name="activity_ids"/>
