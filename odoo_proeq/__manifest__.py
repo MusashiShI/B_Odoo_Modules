@@ -8,7 +8,7 @@ from uaclient.api.u.pro.services.dependencies.v1 import dependencies
     "version": '0.1',
     "category": "Services",
 
-    'depends': ['mail'],
+    'depends': ['base', 'mail'],
 
     "data": [
         "security/ir.model.access.csv",
