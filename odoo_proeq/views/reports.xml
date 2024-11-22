@@ -15,7 +15,7 @@
                     <field name="description" optional="hide"/>
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
-                    <field name="version" optional="show"/>
+                    <field name="odoo_version" optional="show"/>
             </list>
         </field>
     </record>
@@ -33,7 +33,7 @@
                             <field name="description" />
                             <field name="ip" />
                             <field name="type" />
-                            <field name="version"/>
+                            <field name="odoo_version"/>
                         </group>
                     </group>
                 </sheet>
