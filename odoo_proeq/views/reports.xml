@@ -7,7 +7,11 @@
         <field name="arch" type="xml">
             <list string="Reports">
                     <field name="name" optional="show"/>
-                    <field name="state" optional="show" />
+                    <field name="state" optional="show"
+                           decoration-success="state == 'on'"
+                           decoration-danger="state == 'off'"
+                           decoration-warning="state == 'problems'"
+                           widget="badge" />
                     <field name="description" optional="hide"/>
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
@@ -23,15 +27,11 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" optional="show"/>
-                            <field name="state" optional="show"
-                                   decoration-success="state == 'on'"
-                                   decoration-danger="state == 'off'"
-                                   decoration-warning="state == 'problems'"
-                                   widget="badge"/>
-                            <field name="description" optional="hide"/>
-                            <field name="ip" optional="hide"/>
-                            <field name="type" optional="hide"/>
+                            <field name="name" />
+                            <field name="state" />
+                            <field name="description" />
+                            <field name="ip" />
+                            <field name="type" />
                         </group>
                     </group>
                 </sheet>
