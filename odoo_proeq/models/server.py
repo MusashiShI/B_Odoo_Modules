@@ -15,7 +15,7 @@ class ProeqServer(models.Model):
     # Para analisar o state usa ping, caso esteja down usa wget para ter mais informações
     description =  fields.Char(string="Description",  required=True)
     ip = fields.Char(string="Ip",  required=True)
-    type = fields.Selection([('odoo','Odoo'), ('vue','Vue'),('database','DataBase')], string="type")
+    type = fields.Selection([('odoo','Odoo'), ('vue','Vue'),('database','DataBase'),('locust','Locust')], string="type")
 
 
 
