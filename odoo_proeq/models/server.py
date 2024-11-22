@@ -11,7 +11,7 @@ class ProeqServer(models.Model):
     # name, state, description, ip, type ( ODOO, VUE, DATABASE )
 
     name = fields.Char(string="Name",  required=True)
-    state = fields.Boolean(string="State", readonly = True)
+    state = fields.Selection([('on','On'), ('off','Off'),('problems','Problems')], string="State", readonly = True)
     # Para analisar o state usa ping, caso esteja down usa wget para ter mais informações
     description =  fields.Char(string="Description",  required=True)
     ip = fields.Char(string="Ip",  required=True)
