@@ -16,7 +16,8 @@ class ProeqServer(models.Model):
     description =  fields.Char(string="Description",  required=True)
     ip = fields.Char(string="Ip",  required=True)
     type = fields.Selection([('odoo','Odoo'), ('vue','Vue'),('database','DataBase'),('locust','Locust')], string="Type")
-    odoo_version = fields.Selection([('18.0', '18.0'), ('17.0', '17.0'), ('16.0', '16.0')],string="Version")
+    odoo_version = fields.Selection([('18.0', '18.0'), ('17.0', '17.0'), ('16.0', '16.0')],string="Odoo_Version")
+    ubuntu_version = fields.Selection([('24.04', '24.04'), ('22.04', '22.04')], string="Ubuntu_Version")
 
 
 

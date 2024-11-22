@@ -16,6 +16,7 @@
                     <field name="ip" optional="hide"/>
                     <field name="type" optional="hide"/>
                     <field name="odoo_version" optional="show"/>
+                    <field name="ubuntu_version" optional="hide"/>
             </list>
         </field>
     </record>
@@ -34,6 +35,7 @@
                             <field name="ip" />
                             <field name="type" />
                             <field name="odoo_version"/>
+                            <field name="ubuntu_version"/>
                         </group>
                     </group>
                 </sheet>
