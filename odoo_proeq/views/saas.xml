@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <record id="view_servers_reports_list" model="ir.ui.view" >
-        <field name="name">Server Reports List</field>
+    <record id="view_servers_saas_list" model="ir.ui.view" >
+        <field name="name">Saas Servers List</field>
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
-            <list string="Reports">
+            <list string="saas">
                     <field name="name" optional="show"/>
                     <field name="state" optional="show"
                            decoration-success="state == 'on'"
@@ -21,11 +21,11 @@
         </field>
     </record>
 
-        <record id="view_servers_reports_form" model="ir.ui.view" >
-        <field name="name">Server Reports Form</field>
+        <record id="view_servers_saas_form" model="ir.ui.view" >
+        <field name="name">Saas Server Form</field>
         <field name="model">proeq.server</field>
         <field name="arch" type="xml">
-            <form string="Reports">
+            <form string="saas">
                 <sheet>
                     <group>
                         <group>
@@ -47,8 +47,8 @@
 
 
 
-    <record id="action_servers_reports" model="ir.actions.act_window">
-            <field name="name">Servers Reports</field>
+    <record id="action_servers_saas" model="ir.actions.act_window">
+            <field name="name">Servers Saas</field>
             <field name="res_model">proeq.server</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">

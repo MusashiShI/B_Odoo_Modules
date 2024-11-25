@@ -6,16 +6,16 @@
               action="action_servers_menu"
     />
 
-        <menuitem id="menu_svmetrics"
-                  name="Metrics"
+        <menuitem id="menu_saas"
+                  name="Saas List"
                   parent="menu_server_root"
-                  action="action_servers_metrics"
+                  action="action_servers_list"
         />
 
-        <menuitem id="menu_svreports"
-                  name="Reports"
+        <menuitem id="menu_proeq"
+                  name="Proeq List"
                   parent="menu_server_root"
-                  action="action_servers_reports"
+                  action="action_servers_proeq"
         />
 
 
