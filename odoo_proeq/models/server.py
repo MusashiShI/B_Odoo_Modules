@@ -127,8 +127,12 @@ class ProeqServer_Saas(models.Model):
                 # Imprime as variáveis para debug
                 _logger.info(f"Comando de deploy gerado: {deploy_command}")
 
-                # Executa o comando de deploy
-                subprocess.run(deploy_command, shell=True, check=True)
+                # Simula a execução do comando para testes
+                # Abaixo simula uma execução bem-sucedida sem chamar o subprocess
+                _logger.info("Simulação do comando de deploy. Não executando o comando real.")
+
+                # Em um teste real, você poderia descomentar esta linha para realmente executar:
+                # subprocess.run(deploy_command, shell=True, check=True)
 
                 # Atualiza o estado do servidor para 'on' se tudo ocorrer bem
                 record.state = 'on'
