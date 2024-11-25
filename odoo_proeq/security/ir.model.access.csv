@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 odoo_proeq.access_proeq_server,access_proeq_server,odoo_proeq.model_proeq_server,base.group_user,1,1,1,1
+odoo_proeq.access_proeq_saas_server,access_proeq_saas_server,odoo_proeq.model_proeq_saas_server,base.group_user,1,1,1,1
