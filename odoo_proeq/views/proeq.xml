@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+    <record id="view_servers_proeq_list" model="ir.ui.view" >
+        <field name="name">Proeq Servers List</field>
+        <field name="model">proeq.server</field>
+        <field name="arch" type="xml">
+            <list string="proeq">
+                    <field name="name" optional="show"/>
+                    <field name="state" optional="show"
+                           decoration-success="state == 'on'"
+                           decoration-danger="state == 'off'"
+                           decoration-warning="state == 'problems'"
+                           widget="badge" />
+                    <field name="description" optional="hide"/>
+                    <field name="ip" optional="hide"/>
+                    <field name="type" optional="hide"/>
+                    <field name="odoo_version" optional="show"/>
+                    <field name="ubuntu_version" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+        <record id="view_servers_proeq_form" model="ir.ui.view" >
+        <field name="name">Proeq Server Form</field>
+        <field name="model">proeq.server</field>
+        <field name="arch" type="xml">
+            <form string="proeq">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="state" />
+                            <field name="description" />
+                            <field name="ip" />
+                            <field name="type" />
+                            <field name="odoo_version"/>
+                            <field name="ubuntu_version"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+
+
     <record id="action_servers_proeq" model="ir.actions.act_window">
-            <field name="name">Proeq Servers</field>
+            <field name="name">Servers Proeq</field>
             <field name="res_model">proeq.server</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Create a new Server</p>
             </field>
     </record>
-
 
 </odoo>
