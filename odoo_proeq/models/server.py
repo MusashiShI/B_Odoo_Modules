@@ -7,12 +7,14 @@ _logger = logging.getLogger(__name__)
 
 def create_ssh_file(server_name, server_ip, server_type, user):
     """
-    Função para criar um arquivo SSH no diretório /bin.
+    Função para criar um arquivo SSH no diretório /bin, com Jump Host fixo.
     """
-    ssh_content = f"""# SSH Configuration for {server_name}
-Host {server_name}
-    HostName {server_ip}
-    User {user}  # Agora usando o valor de user
+    # IP fixo do Jump Host
+    jump_host_ip = '148.69.188.27'
+
+    # Conteúdo do arquivo SSH
+    ssh_content = f"""#!/bin/bash
+ssh -p 22 {user}@{server_ip} -J {user}@{jump_host_ip}  # Conexão via Jump Host
 """
     file_path = f"/bin/{server_name}_server_ssh"
     try:
