@@ -5,6 +5,9 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
+
+
 def create_ssh_file(server_name, server_ip, server_type):
     """
     Função para criar um arquivo SSH no diretório /bin.
@@ -23,6 +26,10 @@ Host {server_name}
     except Exception as e:
         _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
         raise Exception(f"Erro ao criar arquivo SSH: {e}")
+
+
+
+
 
 class ProeqServer(models.Model):
     _name = 'proeq.server'
@@ -73,13 +80,17 @@ class ProeqServer(models.Model):
                 _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
                 raise Exception(f"Erro ao criar arquivo SSH: {e}")
 
+
+
+
+
 def create_inventory_file(server_name, server_ip):
     """
     Função para criar um inventário temporário para o Ansible.
     """
     inventory_content = f"""
 [all]
-{server_ip} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=/path/to/your/private/key
+{server_ip} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_ed25519.pub
 """
     inventory_path = f"/tmp/{server_name}_inventory.ini"
     try:
@@ -136,7 +147,7 @@ class ProeqServer_Saas(models.Model):
                 inventory_path = create_inventory_file(record.name, record.ip)
 
                 # Caminho do playbook
-                playbook_path = '/path/to/your/playbook.yml'  # Atualize para o caminho real
+                playbook_path = '~/playbook.yml '  # Atualize para o caminho real
 
                 # Comando do Ansible
                 command = [
