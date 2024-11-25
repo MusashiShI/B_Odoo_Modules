@@ -24,22 +24,6 @@ Host {server_name}
         _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
         raise Exception(f"Erro ao criar arquivo SSH: {e}")
 
-def create_inventory_file(server_name, server_ip):
-    """
-    Função para criar um inventário temporário para o Ansible.
-    """
-    inventory_content = f"""
-[all]
-{server_ip} ansible_ssh_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_ed25519.pub
-"""
-    inventory_path = f"/tmp/{server_name}_inventory.ini"
-    try:
-        with open(inventory_path, 'w') as inventory_file:
-            inventory_file.write(inventory_content)
-        return inventory_path
-    except Exception as e:
-        _logger.error(f"Erro ao criar inventário para {server_name}: {e}")
-        raise Exception(f"Erro ao criar inventário: {e}")
 
 class ProeqServer(models.Model):
     _name = 'proeq.server'
@@ -90,6 +74,7 @@ class ProeqServer(models.Model):
                 _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
                 raise Exception(f"Erro ao criar arquivo SSH: {e}")
 
+
 class ProeqServer_Saas(models.Model):
     _name = 'proeq.saas.server'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -102,7 +87,7 @@ class ProeqServer_Saas(models.Model):
         default='off'
     )
     description = fields.Char(string="Description", required=True)
-    ip = fields.Char(string="Ip", required=True)
+    ip = fields.Char(string="Ip", required=False)  # O IP será preenchido automaticamente
     type = fields.Selection(
         [('odoo', 'Odoo'), ('vue', 'Vue'), ('database', 'DataBase'), ('locust', 'Locust')],
         string="Type"
@@ -120,47 +105,36 @@ class ProeqServer_Saas(models.Model):
     @api.model
     def create(self, vals):
         record = super(ProeqServer_Saas, self).create(vals)
-        record._run_ansible_playbook()
+        record._deploy_odoo_server()  # Chama a função que vai fazer o deploy do Odoo
         return record
 
     def write(self, vals):
         result = super(ProeqServer_Saas, self).write(vals)
-        if 'ip' in vals or 'name' in vals or 'type' in vals:
-            self._run_ansible_playbook()
+        if 'name' in vals or 'odoo_version' in vals:
+            self._deploy_odoo_server()  # Se houver alterações no nome ou versão do Odoo, faz o deploy novamente
         return result
 
-    def _run_ansible_playbook(self):
+    def _deploy_odoo_server(self):
         for record in self:
             try:
-                # Criação do inventário dinâmico com o novo caminho
-                inventory_path = create_inventory_file(record.name, record.ip)
+                # Cria o comando para execução do deploy Odoo
+                odoo_version = record.odoo_version or '16.0'  # Pega a versão do Odoo ou 16.0 por padrão
+                server_name = record.name
+                enterprise_flag = '-e' if 'enter' in record.description.lower() else ''  # Verifica se é enterprise
+                # Define o comando de deploy
+                deploy_command = f"odoo-deploy {enterprise_flag} -v {odoo_version} {server_name}"
 
-                # Caminho do playbook
-                playbook_path = '/home/odoo/playbook.yml'  # Atualize para o caminho real
+                # Executa o comando de deploy
+                _logger.info(f"Executando comando de deploy Odoo: {deploy_command}")
+                subprocess.run(deploy_command, shell=True, check=True)
 
-                # Comando do Ansible
-                command = [
-                    'ansible-playbook',
-                    '-i', inventory_path,
-                    playbook_path,
-                    '--extra-vars',
-                    f"server_name={record.name} server_ip={record.ip} server_type={record.type}"
-                ]
-
-                # Executa o playbook
-                _logger.info(f"Executando playbook Ansible para o servidor: {record.name}")
-                subprocess.run(command, check=True)
-
-                # Atualiza o estado do servidor
+                # Atualiza o estado do servidor para 'on' se tudo ocorrer bem
                 record.state = 'on'
-
-                # Remove o inventário temporário
-                os.remove(inventory_path)
 
             except subprocess.CalledProcessError as e:
                 record.state = 'problems'
-                _logger.error(f"Erro ao executar playbook Ansible para {record.name}: {e}")
-                raise Exception(f"Erro ao executar playbook Ansible: {e}")
+                _logger.error(f"Erro ao executar o deploy do Odoo para {record.name}: {e}")
+                raise Exception(f"Erro ao executar o deploy do Odoo: {e}")
             except Exception as e:
                 record.state = 'problems'
                 _logger.error(f"Erro geral: {e}")
