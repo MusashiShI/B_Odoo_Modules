@@ -5,6 +5,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 def create_ssh_file(server_name, server_ip, server_type):
     """
     Função para criar um arquivo SSH no diretório /bin.
@@ -51,11 +52,13 @@ class ProeqServer(models.Model):
         string="Ubuntu Version"
     )
 
-    @api.model
-    def create(self, vals):
-        record = super(ProeqServer, self).create(vals)
-        record._create_ssh_file()
-        return record
+    @api.model_create_multi
+    def create(self, vals_list):
+        # Este método agora pode lidar com criação em lote
+        records = super(ProeqServer, self).create(vals_list)
+        for record in records:
+            record._create_ssh_file()
+        return records
 
     def write(self, vals):
         result = super(ProeqServer, self).write(vals)
@@ -73,6 +76,8 @@ class ProeqServer(models.Model):
                 record.state = 'problems'
                 _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
                 raise Exception(f"Erro ao criar arquivo SSH: {e}")
+
+
 
 
 class ProeqServer_Saas(models.Model):
