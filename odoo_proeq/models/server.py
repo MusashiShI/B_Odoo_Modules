@@ -5,15 +5,14 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-
-def create_ssh_file(server_name, server_ip, server_type):
+def create_ssh_file(server_name, server_ip, server_type, user):
     """
     Função para criar um arquivo SSH no diretório /bin.
     """
     ssh_content = f"""# SSH Configuration for {server_name}
 Host {server_name}
     HostName {server_ip}
-    User {user}
+    User {user}  # Agora usando o valor de user
 """
     file_path = f"/bin/{server_name}_server_ssh"
     try:
@@ -24,7 +23,6 @@ Host {server_name}
     except Exception as e:
         _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
         raise Exception(f"Erro ao criar arquivo SSH: {e}")
-
 
 class ProeqServer(models.Model):
     _name = 'proeq.server'
@@ -70,15 +68,14 @@ class ProeqServer(models.Model):
     def _create_ssh_file(self):
         for record in self:
             try:
-                file_path = create_ssh_file(record.name, record.ip, record.type)
+                # Passando o campo 'user' para a função create_ssh_file
+                file_path = create_ssh_file(record.name, record.ip, record.type, record.user)
                 record.message_post(body=f"Arquivo SSH gerado: {file_path}")
                 record.state = 'on'
             except Exception as e:
                 record.state = 'problems'
                 _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
                 raise Exception(f"Erro ao criar arquivo SSH: {e}")
-
-
 
 
 class ProeqServer_Saas(models.Model):
