@@ -9,7 +9,7 @@
         <menuitem id="menu_saas"
                   name="Saas List"
                   parent="menu_server_root"
-                  action="action_servers_list"
+                  action="action_servers_saas"
         />
 
         <menuitem id="menu_proeq"
