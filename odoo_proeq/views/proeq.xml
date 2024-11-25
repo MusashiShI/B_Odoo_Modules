@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <list string="proeq">
                     <field name="name" optional="show"/>
+                    <field name="user" optional="show"/>
                     <field name="state" optional="show"
                            decoration-success="state == 'on'"
                            decoration-danger="state == 'off'"
@@ -30,6 +31,7 @@
                     <group>
                         <group>
                             <field name="name" />
+                            <field name="user"/>
                             <field name="state" />
                             <field name="description" />
                             <field name="ip" />

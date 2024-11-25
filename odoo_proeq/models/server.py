@@ -13,7 +13,7 @@ def create_ssh_file(server_name, server_ip, server_type):
     ssh_content = f"""# SSH Configuration for {server_name}
 Host {server_name}
     HostName {server_ip}
-    User {server_type}
+    User {user}
 """
     file_path = f"/bin/{server_name}_server_ssh"
     try:
@@ -51,6 +51,7 @@ class ProeqServer(models.Model):
         [('24.04', '24.04'), ('22.04', '22.04')],
         string="Ubuntu Version"
     )
+    user = fields.Char(string="User", required=True, default='ubuntu')
 
     @api.model_create_multi
     def create(self, vals_list):
