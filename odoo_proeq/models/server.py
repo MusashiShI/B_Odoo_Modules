@@ -124,8 +124,10 @@ class ProeqServer_Saas(models.Model):
                 # Define o comando de deploy
                 deploy_command = f"odoo-deploy {enterprise_flag} -v {odoo_version} {server_name}"
 
+                # Imprime as variáveis para debug
+                _logger.info(f"Comando de deploy gerado: {deploy_command}")
+
                 # Executa o comando de deploy
-                _logger.info(f"Executando comando de deploy Odoo: {deploy_command}")
                 subprocess.run(deploy_command, shell=True, check=True)
 
                 # Atualiza o estado do servidor para 'on' se tudo ocorrer bem
