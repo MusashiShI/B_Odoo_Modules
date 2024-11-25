@@ -13,8 +13,8 @@
     "data": [
         "security/ir.model.access.csv",
         "views/menuview.xml",
-        "views/metrics.xml",
-        "views/reports.xml",
+        "views/proeq.xml",
+        "views/saas.xml",
         "views/menu.xml"
 
     ]
