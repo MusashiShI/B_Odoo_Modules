@@ -92,7 +92,8 @@ class SaasServer(models.Model):
     @api.model
     def create(self, vals):
         record = super(SaasServer, self).create(vals)
-        record._deploy_odoo_server()  
+        record._deploy_odoo_server()
+        record.create_ssh_file()
         return record
 
     def write(self, vals):
@@ -102,6 +103,23 @@ class SaasServer(models.Model):
         return result
 
 
+    def create_ssh_file(self):
+        for record in self:
+            jump_host_ip = '148.69.188.27'
+
+            ssh_content = f"""#!/bin/bash
+        ssh -p 22 {record.user}@{record.ip} -J egap@{jump_host_ip} 
+        """
+            file_path = f"/usr/local/bin/{record.name}_server_ssh"
+            try:
+                with open(file_path, 'w') as ssh_file:
+                    ssh_file.write(ssh_content)
+                os.chmod(file_path, 0o700) 
+                return file_path
+            except Exception as e:
+                _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
+                raise Exception(f"Erro ao criar arquivo SSH: {e}")
+            
 
     def _deploy_odoo_server(self):
         for record in self:
