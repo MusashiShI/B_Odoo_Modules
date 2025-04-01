@@ -35,9 +35,8 @@ class ProeqServer(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         records = super(ProeqServer, self).create(vals_list) # return list
-        for record in records:
-            record.create_ssh_file()
-        return records
+        records.create_ssh_file()
+   
 
     def write(self, vals):
         result = super(ProeqServer, self).write(vals)
@@ -46,21 +45,22 @@ class ProeqServer(models.Model):
         return result
 
     def create_ssh_file(self):
-        jump_host_ip = '148.69.188.27'
+        for record in self:
+            jump_host_ip = '148.69.188.27'
 
-        ssh_content = f"""#!/bin/bash
-    ssh -p 22 {self.user}@{self.ip} -J egap@{jump_host_ip} 
-    """
-        file_path = f"/usr/local/bin/{self.name}_server_ssh"
-        try:
-            with open(file_path, 'w') as ssh_file:
-                ssh_file.write(ssh_content)
-            os.chmod(file_path, 0o700) 
-            return file_path
-        except Exception as e:
-            _logger.error(f"Erro ao criar arquivo SSH para {self.name}: {e}")
-            raise Exception(f"Erro ao criar arquivo SSH: {e}")
-        
+            ssh_content = f"""#!/bin/bash
+        ssh -p 22 {record.user}@{record.ip} -J egap@{jump_host_ip} 
+        """
+            file_path = f"/usr/local/bin/{record.name}_server_ssh"
+            try:
+                with open(file_path, 'w') as ssh_file:
+                    ssh_file.write(ssh_content)
+                os.chmod(file_path, 0o700) 
+                return file_path
+            except Exception as e:
+                _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
+                raise Exception(f"Erro ao criar arquivo SSH: {e}")
+            
     
 class SaasServer(models.Model):
     _name = 'saas.server'
