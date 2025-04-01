@@ -62,8 +62,8 @@ class ProeqServer(models.Model):
             raise Exception(f"Erro ao criar arquivo SSH: {e}")
         
     
-class ProeqServer_Saas(models.Model):
-    _name = 'proeq.saas.server'
+class SaasServer(models.Model):
+    _name = 'saas.server'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Saas Server'
 
@@ -91,12 +91,12 @@ class ProeqServer_Saas(models.Model):
 
     @api.model
     def create(self, vals):
-        record = super(ProeqServer_Saas, self).create(vals)
+        record = super(SaasServer, self).create(vals)
         record._deploy_odoo_server()  
         return record
 
     def write(self, vals):
-        result = super(ProeqServer_Saas, self).write(vals)
+        result = super(SaasServer, self).write(vals)
         if 'name' in vals or 'odoo_version' in vals:
             self._deploy_odoo_server()  
         return result
