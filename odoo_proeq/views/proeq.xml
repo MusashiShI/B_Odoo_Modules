@@ -32,7 +32,6 @@
                         <group>
                             <field name="name" />
                             <field name="user"/>
-                            <field name="state" />
                             <field name="description" />
                             <field name="ip" />
                             <field name="type" />
