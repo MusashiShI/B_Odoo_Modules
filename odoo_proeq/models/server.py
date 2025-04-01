@@ -6,21 +6,17 @@ import logging
 _logger = logging.getLogger(__name__)
 
 def create_ssh_file(server_name, server_ip, server_type, user):
-    """
-    Função para criar um arquivo SSH no diretório /bin, com Jump Host fixo.
-    """
-    # IP fixo do Jump Host
+
     jump_host_ip = '148.69.188.27'
 
-    # Conteúdo do arquivo SSH
     ssh_content = f"""#!/bin/bash
-ssh -p 22 {user}@{server_ip} -J {user}@{jump_host_ip}  # Conexão via Jump Host
+ssh -p 22 {user}@{server_ip} -J {user}@{jump_host_ip} 
 """
-    file_path = f"/bin/{server_name}_server_ssh"
+    file_path = f"/{server_name}_server_ssh"
     try:
         with open(file_path, 'w') as ssh_file:
             ssh_file.write(ssh_content)
-        os.chmod(file_path, 0o700)  # Define permissões seguras
+        os.chmod(file_path, 0o700) 
         return file_path
     except Exception as e:
         _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
