@@ -49,16 +49,16 @@ class ProeqServer(models.Model):
         jump_host_ip = '148.69.188.27'
 
         ssh_content = f"""#!/bin/bash
-    ssh -p 22 {self.user}@{self.server_ip} -J egap@{jump_host_ip} 
+    ssh -p 22 {self.user}@{self.ip} -J egap@{jump_host_ip} 
     """
-        file_path = f"/usr/local/bin/{self.server_name}_server_ssh"
+        file_path = f"/usr/local/bin/{self.name}_server_ssh"
         try:
             with open(file_path, 'w') as ssh_file:
                 ssh_file.write(ssh_content)
             os.chmod(file_path, 0o700) 
             return file_path
         except Exception as e:
-            _logger.error(f"Erro ao criar arquivo SSH para {self.server_name}: {e}")
+            _logger.error(f"Erro ao criar arquivo SSH para {self.name}: {e}")
             raise Exception(f"Erro ao criar arquivo SSH: {e}")
         
     
