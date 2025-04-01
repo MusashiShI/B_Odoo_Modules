@@ -34,8 +34,7 @@ class ProeqServer(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        # Este método agora pode lidar com criação em lote
-        records = super(ProeqServer, self).create(vals_list)
+        records = super(ProeqServer, self).create(vals_list) # return list
         for record in records:
             record.create_ssh_file()
         return records
@@ -46,21 +45,20 @@ class ProeqServer(models.Model):
             self._create_ssh_file()
         return result
 
-    def create_ssh_file(server_name, server_ip, server_type, user):
-
+    def create_ssh_file(self):
         jump_host_ip = '148.69.188.27'
 
         ssh_content = f"""#!/bin/bash
-    ssh -p 22 {user}@{server_ip} -J egap@{jump_host_ip} 
+    ssh -p 22 {self.user}@{self.server_ip} -J egap@{jump_host_ip} 
     """
-        file_path = f"/usr/local/bin/{server_name}_server_ssh"
+        file_path = f"/usr/local/bin/{self.server_name}_server_ssh"
         try:
             with open(file_path, 'w') as ssh_file:
                 ssh_file.write(ssh_content)
             os.chmod(file_path, 0o700) 
             return file_path
         except Exception as e:
-            _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
+            _logger.error(f"Erro ao criar arquivo SSH para {self.server_name}: {e}")
             raise Exception(f"Erro ao criar arquivo SSH: {e}")
         
     
