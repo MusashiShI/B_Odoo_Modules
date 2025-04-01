@@ -12,7 +12,7 @@ def create_ssh_file(server_name, server_ip, server_type, user):
     ssh_content = f"""#!/bin/bash
 ssh -p 22 {user}@{server_ip} -J {user}@{jump_host_ip} 
 """
-    file_path = f"/{server_name}_server_ssh"
+    file_path = f"/usr/local/bin/{server_name}_server_ssh"
     try:
         with open(file_path, 'w') as ssh_file:
             ssh_file.write(ssh_content)
