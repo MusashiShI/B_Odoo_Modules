@@ -5,23 +5,6 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-def create_ssh_file(server_name, server_ip, server_type, user):
-
-    jump_host_ip = '148.69.188.27'
-
-    ssh_content = f"""#!/bin/bash
-ssh -p 22 {user}@{server_ip} -J {user}@{jump_host_ip} 
-"""
-    file_path = f"/usr/local/bin/{server_name}_server_ssh"
-    try:
-        with open(file_path, 'w') as ssh_file:
-            ssh_file.write(ssh_content)
-        os.chmod(file_path, 0o700) 
-        return file_path
-    except Exception as e:
-        _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
-        raise Exception(f"Erro ao criar arquivo SSH: {e}")
-
 class ProeqServer(models.Model):
     _name = 'proeq.server'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -63,19 +46,24 @@ class ProeqServer(models.Model):
             self._create_ssh_file()
         return result
 
-    def _create_ssh_file(self):
-        for record in self:
-            try:
-                # Passando o campo 'user' para a função create_ssh_file
-                file_path = create_ssh_file(record.name, record.ip, record.type, record.user)
-                record.message_post(body=f"Arquivo SSH gerado: {file_path}")
-                record.state = 'on'
-            except Exception as e:
-                record.state = 'problems'
-                _logger.error(f"Erro ao criar arquivo SSH para {record.name}: {e}")
-                raise Exception(f"Erro ao criar arquivo SSH: {e}")
+    def create_ssh_file(server_name, server_ip, server_type, user):
 
+        jump_host_ip = '148.69.188.27'
 
+        ssh_content = f"""#!/bin/bash
+    ssh -p 22 {user}@{server_ip} -J egap@{jump_host_ip} 
+    """
+        file_path = f"/usr/local/bin/{server_name}_server_ssh"
+        try:
+            with open(file_path, 'w') as ssh_file:
+                ssh_file.write(ssh_content)
+            os.chmod(file_path, 0o700) 
+            return file_path
+        except Exception as e:
+            _logger.error(f"Erro ao criar arquivo SSH para {server_name}: {e}")
+            raise Exception(f"Erro ao criar arquivo SSH: {e}")
+        
+    
 class ProeqServer_Saas(models.Model):
     _name = 'proeq.saas.server'
     _inherit = ['mail.thread', 'mail.activity.mixin']
