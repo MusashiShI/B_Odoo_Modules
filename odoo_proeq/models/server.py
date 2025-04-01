@@ -37,7 +37,7 @@ class ProeqServer(models.Model):
         # Este método agora pode lidar com criação em lote
         records = super(ProeqServer, self).create(vals_list)
         for record in records:
-            record._create_ssh_file()
+            record.create_ssh_file()
         return records
 
     def write(self, vals):
@@ -76,7 +76,7 @@ class ProeqServer_Saas(models.Model):
         default='off'
     )
     description = fields.Char(string="Description", required=True)
-    ip = fields.Char(string="Ip", required=False)  # O IP será preenchido automaticamente
+    ip = fields.Char(string="Ip", required=False)  
     type = fields.Selection(
         [('odoo', 'Odoo'), ('vue', 'Vue'), ('database', 'DataBase'), ('locust', 'Locust')],
         string="Type"
@@ -94,37 +94,33 @@ class ProeqServer_Saas(models.Model):
     @api.model
     def create(self, vals):
         record = super(ProeqServer_Saas, self).create(vals)
-        record._deploy_odoo_server()  # Chama a função que vai fazer o deploy do Odoo
+        record._deploy_odoo_server()  
         return record
 
     def write(self, vals):
         result = super(ProeqServer_Saas, self).write(vals)
         if 'name' in vals or 'odoo_version' in vals:
-            self._deploy_odoo_server()  # Se houver alterações no nome ou versão do Odoo, faz o deploy novamente
+            self._deploy_odoo_server()  
         return result
+
+
 
     def _deploy_odoo_server(self):
         for record in self:
             try:
-                # Cria o comando para execução do deploy Odoo
-                odoo_version = record.odoo_version or '16.0'  # Pega a versão do Odoo ou 16.0 por padrão
+    
+                odoo_version = record.odoo_version or '18.0'  
                 server_name = record.name
-                enterprise_flag = '-e' if 'enter' in record.description.lower() else ''  # Verifica se é enterprise
-                # Define o comando de deploy
+                enterprise_flag = '-e' if 'enter' in record.description.lower() else '' 
+            
                 deploy_command = f"odoo-deploy {enterprise_flag} -v {odoo_version} {server_name}"
 
-                # Imprime as variáveis para debug
                 _logger.info(f"Comando de deploy gerado: {deploy_command}")
 
-                # Simula a execução do comando para testes
-                # Abaixo simula uma execução bem-sucedida sem chamar o subprocess
+               
                 _logger.info("Simulação do comando de deploy. Não executando o comando real.")
 
-                # Em um teste real, você poderia descomentar esta linha para realmente executar:
-                # subprocess.run(deploy_command, shell=True, check=True)
-
-                # Atualiza o estado do servidor para 'on' se tudo ocorrer bem
-                record.state = 'on'
+                record.state = 'off'
 
             except subprocess.CalledProcessError as e:
                 record.state = 'problems'
