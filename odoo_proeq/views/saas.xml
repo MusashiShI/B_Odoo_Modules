@@ -3,7 +3,7 @@
 
     <record id="view_servers_saas_list" model="ir.ui.view" >
         <field name="name">Saas Servers List</field>
-        <field name="model">proeq.saas.server</field>
+        <field name="model">saas.server</field>
         <field name="arch" type="xml">
             <list string="saas">
                     <field name="name" optional="show"/>
@@ -24,7 +24,7 @@
 
         <record id="view_servers_saas_form" model="ir.ui.view" >
         <field name="name">Saas Server Form</field>
-        <field name="model">proeq.saas.server</field>
+        <field name="model">saas.server</field>
         <field name="arch" type="xml">
             <form string="saas">
                 <sheet>
